@@ -1,0 +1,91 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>Request Furniture</title>{% endblock %}
+
+{% block content %}
+<h4>View your Request</h4>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th class="text-center">Furniture Name</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Request Date</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Response</th>
+            <th class="text-center">Response Date</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% if requests %}
+        {% for item in requests %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ item.get('furniturename') }}</td>
+            <td>{{ item.get('category') }}</td>
+            <td>{{ item.get('requestdate') }}</td>
+            <td>{{ item.get('description') }}</td>
+            <td>{{ item.get('response') }}</td>
+            <td>{{ item.get('reponsedate')}}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+            <td>None</td>
+        </tr>
+
+        {% endif %}
+    </tbody>
+</table>
+<br><br>
+<hr>
+<h4>Please fill your request in the FORM below</h4>
+<br>
+<div class="container">
+    <header>Request Info</header>
+    <div class="form">
+        <form id="request" name="request" action="/request" method="post">
+            <div class="content">
+                <div class="input-field">
+                    <label for="category">Furniture Category</label>
+                    <input type="text" name="category" id="category" placeholder="Please input the furniture category "
+                        required="required">
+                </div>
+
+                <div class="input-field">
+                    <label for="furniturename">Furniture Name</label>
+                    <input type="text" name="furniturename" id="furniturename"
+                        placeholder="Please input the furniture name" required="required">
+                </div>
+
+                <div class="input-field">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description"
+                        placeholder="Please input the description of furniture " required="required">
+                </div>
+
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Category</title>{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <header>Update</header>
+    <div class="form">
+        <form id="editCate" name="editCate" action="/updateCate" method="POST">
+            <div class="content">
+                <div class="input-field">
+                    <label for="staffid">Category ID</label>
+                    <input type="text" name="id" id="id" value="{{details.get('categoryid') }}" disabled>
+                    <input type="hidden" name="categoryid" id="categoryid" value="{{details.get('categoryid') }}">
+                </div>
+                <div class="input-field">
+                    <label for="firstName">Category Name</label>
+                    <input type="text" maxlength="32" name="categoryname" id="categoryname"
+                        value="{{details.get('categoryname') }}">
+                </div>
+                <div class="input-field">
+                    <label for="lastName">Description</label>
+                    <input type="text" maxlength="32" name="description" id="description"
+                        value="{{details.get('description') }}">
+                </div>
+
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}

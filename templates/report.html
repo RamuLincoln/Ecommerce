@@ -1,0 +1,122 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="search-container" align="center">
+    <form id="text" name="startdate" action="/report" method="post" autocomplete="off">
+        <div>
+            <h1>Revenue Report</h1>
+        </div>
+        <label for="startdate">Startdate</label>
+        <input type="date" name="startdate" id="startdate">&nbsp;<span>&nbsp;-&nbsp;</span>
+        <label for="enddate">Enddate</label>
+        <input type="date" name="enddate" id="enddate">
+        <input type="submit" value="Submit">
+        {% if startdate and enddate %}<br>
+        <p>( {{ startdate}} -- {{ enddate}})</p>{% endif %}
+
+        {% if order4 != 0 %}
+        {% for item in order4 %}
+
+        <h2>Profit/Loss: $ {{ item.get('totalcost') }}</h2>
+        </h2>
+        {% endfor %}
+        {% endif %}
+    </form>
+</div>
+
+<h2>Products sold</h2>
+{% if order != 0 %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Purchase Date</th>
+            <th class="text-center">Delivery Status</th>
+            <th class="text-center">Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in order %}
+        <tr>
+            <td>{{ item.get('furniturename') }}</td>
+            <td>{{ item.get('orderdate') }}</td>
+            <td>{{ item.get('deliverystatus') }}</td>
+            <td>${{ item.get('price') }}</td>
+        </tr>
+
+        {% endfor %}
+
+        {% endif %}
+
+    </tbody>
+</table>
+
+{% if order2 != 0 %}
+{% for item in order2 %}
+
+<h2>Total: $ {{ item.get('totalcost') }}</h2>
+</h2>
+{% endfor %}
+{% endif %}
+<br>
+<h2>Products brought</h2>
+{% if order != 0 %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Purchase Date</th>
+            <th class="text-center">Delivery Status</th>
+            <th class="text-center">Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in order1 %}
+        <tr>
+            <td>{{ item.get('furniturename') }}</td>
+            <td>{{ item.get('purchaseddate') }}</td>
+            <td>{{ item.get('purchasestatus') }}</td>
+            <td>${{ item.get('purchasedprice') }}</td>
+        </tr>
+
+        {% endfor %}
+        {% endif %}
+
+    </tbody>
+</table>
+
+{% if order3 != 0 %}
+{% for item in order3 %}
+
+<h2>Total: $ {{ item.get('totalcost') }}</h2>
+</h2>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

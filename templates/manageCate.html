@@ -1,0 +1,60 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+
+{% endblock %}
+{% block title %}<title>UserRegister</title>{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<br>
+<br>
+<div class="add">
+    <a href="/addcategory"><button class="add-cart">Add</button></a>
+</div>
+<div align="center">
+    <br>
+    <table class="table table-bordered" ; style="width:50%">
+
+        <thead>
+
+            <tr>
+                <th class="text-center">Category</th>
+                <th class="text-center">Description</th>
+                <th class="text-center">edit</th>
+                <th class="text-center">delete</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for item in category %}
+            <tr>
+                <td>{{ item.get('categoryname') }}</td>
+                <td>{{ item.get('description') }}</td>
+                <td><a href="{{ url_for('viewCateDetail', categoryid=item.get('categoryid')) }}"><button
+                            class="add-cart">Edit</button></td>
+                <td><a href="{{ url_for('delcategory', categoryid=item.get('categoryid')) }}"><button
+                            class="add-cart">Delete</button></a></td>
+                {% endfor %}
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<br>
+
+{% endblock %}

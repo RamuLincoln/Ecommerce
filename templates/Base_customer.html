@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- owl carousel css file cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="static/home.css">
+    {% endblock %}
+
+    {% block title %}{% endblock %}
+</head>
+
+<body>
+    {% block nav %}
+    <header>
+
+        <div class="header-1">
+
+            <a href="#" class="logo"> <i class="fas fa-shopping-bag"></i> LUFurniture</a>
+
+            <div class="form-container">
+                <form action="/search" method="post">
+                    <input type="text" class="input" name="search" placeholder="search products" id="search" />
+                    <button for="search" class="fas fa-search"></button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="header-2">
+
+            <div id="menu" class="fas fa-bars"></div>
+
+            <nav class="navbar">
+                <ul>
+                    <li><a class="active" href="/shopping">Home</a></li>
+                    <li><a href="/customersell">Sell</a></li>
+                    <li><a href="/customertrackstatus">Track Selling Status</a></li>
+                    <li><a href="/request">Requests</a></li>
+                    <li><a href="/order">Order</a></li>
+                    <li class="cart">
+                        <a href="/shopping_cart">
+                            <sp></sp>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <a href="/shopping_cart" class="fas fa-shopping-cart">
+                    <sp></sp>
+                </a>
+                <a href="/logout" class="fas fa-user"> {{ customername }}</a>
+            </div>
+
+        </div>
+    </header>
+    <!-- header section ends -->
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <!-------------Footer-------------->
+    <footer>
+        <a href="#" class="logo"> <i class="fas fa-shopping-bag"></i> LUFurniture </a>
+        <p>Address: 9 Avon st, Lincoln, 7608</p>
+        <p>Email: shopping@furniture.com</p>
+        <p>Phone: +64 2109080706</p>
+        <div class="fa-brands">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        </div>
+    </footer>
+    <!---------x----Footer----x-------->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+:root{
+    --blue:#2980b9;
+}
+/* body */
+body {
+    background-image: url(./images/blu.jpg);
+    background: no-repeat;
+}
+.container{
+    position: relative;
+    max-width: 850px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 0 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+}
+.container header{
+    font-size: 20px;
+    font-weight: 600;
+    color: #002755;
+}
+label {
+    clear: left;
+    display: block;
+    float: left;
+    font-size: 1.2em;
+    margin: 7px 4% 7px 5px;
+    width: 40%;
+    font-weight: bold;
+    color: var(--blue);
+    font-size: 16px;
+}
+h3 {
+    display: block;
+    float: left;
+    font-size: 1.2em;
+    margin: 7px 4% 7px 5px;
+    width: 40%;
+    font-weight: bold;
+    color: var(--blue);
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    display: inline;
+    float: none;
+    height: 30px;
+    width: 150px;
+    color: var(--blue);
+    background: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 350px;
+    margin-right: 150px;
+ }
+input[type="submit"]:hover {
+    transform: scale(1.1);
+    color: #fff;
+    background: var(--blue);   
+}
+.container img{
+    cursor: pointer;
+    height: 35rem;
+    width: 35rem;
+    transition: all 2.5s ease-in;
+}
+.container img:hover {
+    transform: scale(1.5) rotateZ(360deg);
+}
+

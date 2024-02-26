@@ -1,0 +1,60 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <header>Rejected Furniture</header>
+    <div class="form">
+        <form id="staffreject" name="staffreject" action="/staffrejectUpdate" method="POST">
+
+
+            <div class="input-field">
+                <label for="furniturename">Furniture Name</label>
+                <input type="text" maxlength="32" name="furniturename" id="furniturename"
+                    value="{{details.get('furniturename') }}" required="required">
+            </div>
+
+            <div class="input-field">
+                <input type="hidden" maxlength="32" name="furnitureid" id="furnitureid"
+                    value="{{details.get('furnitureid') }}" required="required">
+            </div>
+
+            <div class="input-field">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" value="{{details['description']}}"
+                    required="required">
+            </div>
+
+            <div class="box">
+                <label for="image">Image</label>
+                <img src="{{details['image']}}" width="200" height="200">
+            </div>
+
+            <div class="input-field">
+                <label for="purchasedprice">Purchased Price</label>
+                <input type="purchasedprice" name="purchasedprice" id="purchasedprice"
+                    value="{{details['purchasedprice']}}" required="required">
+            </div>
+
+            <div class="input-field">
+                <label for="status">purchasestatus</label>
+                <input type="status" name="status" id="status" value="Reject" readonly>
+            </div>
+
+            <p>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </p>
+    </div>
+    </form>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+
+<!-- home section starts  -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<section class="home" id="home">
+    <div class="home-slider">
+        <div class="item">
+            <video autoplay muted loop id="video">
+                <source src="static/images/furniture-ad-video.mp4" type="video/mp4">
+            </video>
+            <div class="content">
+                <h3>Welcome Customer</h3>
+                <p>Great deals everyday! Don't miss out!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!---------Category-------------->
+
+<div class="name" id="name">
+    <h1>Category</h1>
+</div>
+<!--<div class="row owl-carousel">-->
+<section class="category">
+    <div class="box-container">
+        {% for item in category%}
+        <a href="/fur?categoryid={{item.get('categoryid')}}" class="box">
+            <img src="{{item.get('image')}}">
+            <h3>{{item.get('categoryname')}}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock %}

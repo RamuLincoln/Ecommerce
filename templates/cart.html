@@ -1,0 +1,96 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+
+<body onload="flashMessage()">
+    <form action="/payment" method="post">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">Select</th>
+                    <th class="text-center">Product Name</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Price($)</th>
+                    <th class="text-center">Discounted price</th>
+                    <th class="text-center">Period of discount</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Total($)</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for item in furniture %}
+                <tr>
+                    <td>
+                        {% if item.get('status') == 'sold' %}
+                        <input type="checkbox" name="furniture" value="{{ item.get('furnitureid') }}"
+                            data="{{ item.get('sellprice') }}" onchange="calculateSellPrice()" disabled>
+                        {% else %}
+                        <input type="checkbox" name="furniture" value="{{ item.get('furnitureid') }}"
+                            data="{{ item.get('sellprice') }}" onchange="calculateSellPrice()">
+                        {% endif %}
+
+                        <input type="hidden" name="sellprice" value="{{ item.get('sellprice') }}">
+                    </td>
+                    <td>{{ item.get('furniturename') }}</td>
+                    <td>{{ item.get('description') }}</td>
+                    {% if item.get('periodofdiscount') and item.get('periodofdiscount')>today %}
+                    <td style="text-decoration: line-through;">${{ item.get('sellprice') }}</td>
+                    <td>{{ item.get('discount') }}</td>
+                    <td>{{ item.get('periodofdiscount') }}</td>
+                    {% else %}
+                    <td>{{ item.get('sellprice') }}</td>
+                    <td>--</td>
+                    <td>--</td>
+                    {% endif %}
+                    <td>1</td>
+                    <td name="displayedprice">
+                        {% if item.get('periodofdiscount') and item.get('periodofdiscount')>today %}
+                        {{ item.get('discount') }}
+                        {% else %}
+                        {{ item.get('sellprice') }}</td>
+                    {% endif %}
+                    <td>
+                        <a href="/delete_cart?furnitureid={{ item.get('furnitureid') }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+        <input type="hidden" id="totalPrice" name="totalPrice">
+        <input type="submit" value="Check out">
+        <div class="total">
+            <h2>Total($): <h2 id="total"></h2>
+            </h2>
+        </div>
+    </form>
+</body>
+<script>
+    function calculateSellPrice() {
+        let totalAmount = 0
+        const displayedpriceEle = document.getElementsByName("displayedprice")
+        document.getElementsByName("furniture").forEach((ele, i) => {
+            if (ele.checked) {
+                totalAmount += parseFloat(displayedpriceEle[i].innerText)
+            }
+        })
+        document.getElementById('total').innerText = totalAmount
+        document.getElementById('totalPrice').value = totalAmount
+    }
+
+    function flashMessage() {
+        if ("{{ flashmessage }}" !== "None") {
+            alert("{{ flashmessage }}");
+        }
+    }
+</script>
+{% endblock %}

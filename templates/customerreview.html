@@ -1,0 +1,54 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+<hr>
+<div class="container">
+    <header>Furniture review</header>
+    <div class="form">
+        <form id="customerreview" name="customerreview" action="/customerreview" method="post">
+            <div class="content">
+                <label for="orderid">Orderid</label>
+                <input type="text" name="orderid" id="orderid" value="{{ details['orderid'] }}" readonly>
+
+                <label for="productname">Product name</label>
+                <input type="text" name="productname" id="furniturename" value="{{ details['furniturename'] }}"
+                    readonly>
+
+                <label for="Review">Review</label>
+                <input textarea cols="75" name="review" rows="5" id="review" margin-left="50px"
+                    required="required"></textarea>
+
+                <label for="Rating">Rating</label>
+                <div class="star-rating">
+                    <input type="radio" name="stars" id="stars1" value="5" />
+                    <label for="stars1"></label>
+
+                    <input type="radio" name="stars" id="stars2" value="4" />
+                    <label for="stars2"></label>
+
+                    <input type="radio" name="stars" id="stars3" value="3" />
+                    <label for="stars3"></label>
+
+                    <input type="radio" name="stars" id="stars4" value="2" />
+                    <label for="stars4"></label>
+
+                    <input type="radio" name="stars" id="stars5" value="1" />
+                    <label for="stars5"></label>
+                </div>
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>View Customer Requests</title>{% endblock %}
+
+
+
+{% block content %}
+
+<h3>List Of Requests from Customers</h3>
+<br>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Request ID</th>
+            <th class="text-center">Customer Name</th>
+            <th class="text-center">Request Date</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">View and Respond</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in requests %}
+        <tr>
+            <td>{{ item.get('id') }}</td>
+            <td>{{ item.get('firstname') }} {{ item.get('lastname')}}</td>
+            <td>{{ item.get('requestdate') }}</td>
+            {% if item.get('response') %}
+            <td>Done</td>
+            {% else %}
+            <td>To do</td>
+            {% endif %}
+            <td><a href="/view_request?requestid={{ item.get('id') }}"><button class="add-cart">View</button></a></td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+<hr>
+<br><br>
+{% endblock %}

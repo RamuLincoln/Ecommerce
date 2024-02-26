@@ -1,0 +1,30 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<div align="center">
+    <div class="jumbotron" style="width:50%" ; align="center">
+        <h3>Are you sure to delete this item?</h3>
+        <br>
+
+        <form action="/delFur/{{furniture_id}}" method="POST">
+            <a href="/managefur" class="btn btn-primary btn-lg">CANCEL</a>
+            <button type="submit" name="delete" id="delete" class="btn btn-danger btn-lg">CONFIRM</button>
+            <input type="hidden" id="furnitureid" name="furnitureid" value="{{furniture_id}}">
+        </form>
+
+    </div>
+    <br>
+    <br>
+</div>
+
+
+
+{% endblock %}

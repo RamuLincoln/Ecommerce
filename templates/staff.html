@@ -1,0 +1,24 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Staff</title>{% endblock %}
+
+{% block content %}
+<!-- home section starts  -->
+
+<section class="home" id="home">
+    <div class="home-slider">
+        <div class="item">
+            <img src="/static/images/s2.webp" alt="">
+            <div class="content">
+                <h3>Welcome staff</h3>
+                <p>Manage Second Hand Furniture and get them refurbished!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

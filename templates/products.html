@@ -1,0 +1,47 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='products.css')}}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <header>{{details.get('furniturename') }}</header>
+    <div class="image">
+        <label for="image"></label>
+        <img src="{{details.get('image')}}" width="200" height="200">
+    </div>
+    <div class="box">
+        <label for="description">Description : </label>
+        <h3>{{details['description']}}</h3>
+    </div>
+    <div class="box">
+        <label for="sellprice">Price : </label>
+        <h3>${{details['sellprice']}}</h3>
+    </div>
+    <div class="box">
+        <label for="discount">Discount Price: </label>
+        <h3>${{details['discount']}}</h3>
+    </div>
+    <form action="/add_cart" method="get" name="addCart" onsubmit="return onAddCart()">
+        <input type="hidden" name="furnitureid" value="{{details.get('furnitureid')}}" />
+        <input type="hidden" name="customername" value="{{ customername }}" />
+        <input type="submit" value="Add to Cart">
+    </form>
+</div>
+</form>
+</div>
+</div>
+<script>
+    function onAddCart() {
+        const name = document.forms["addCart"]["customername"].value;
+        if (name === 'None') {
+            alert('Please login or register.')
+            return false;
+        }
+    }
+</script>
+{% endblock %}

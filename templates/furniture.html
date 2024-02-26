@@ -1,0 +1,185 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+{% block title %}<title>UserRegister</title>{% endblock %}
+
+{% block content %}
+<style>
+    .name {
+        width: 100%;
+        height: 15vh;
+        background-image: none;
+        background-size: auto;
+        background-position: top;
+    }
+
+
+    .fixed_headers {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-decoration: underline;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+        word-break: break-all;
+    }
+
+    td:nth-child(1),
+    th:nth-child(1) {
+        width: 180px;
+    }
+
+    td:nth-child(2),
+    th:nth-child(2) {
+        width: 130px;
+    }
+
+    td:nth-child(3),
+    th:nth-child(3) {
+        width: 170px;
+    }
+
+    td:nth-child(4),
+    th:nth-child(4) {
+        width: 200px;
+    }
+
+    td:nth-child(5),
+    th:nth-child(5) {
+        width: 130px;
+    }
+
+    td:nth-child(6),
+    th:nth-child(6) {
+        width: 160px;
+    }
+
+    td:nth-child(7),
+    th:nth-child(7) {
+        width: 180px;
+    }
+
+    td:nth-child(8),
+    th:nth-child(8) {
+        width: 150px;
+    }
+
+    td:nth-child(9),
+    th:nth-child(9) {
+        width: 150px;
+    }
+
+    td:nth-child(10),
+    th:nth-child(10) {
+        width: 150px;
+    }
+
+    thead {
+        background-color: black;
+        color: whitesmoke;
+    }
+
+    tr {
+        display: block;
+        position: relative;
+    }
+
+    tbody {
+        display: block;
+        overflow: auto;
+        width: 100%;
+        height: auto;
+    }
+
+    td {
+        background-color: whitesmoke;
+    }
+</style>
+
+</head>
+
+<body>
+
+    <section class="category">
+        <div class="box-container">
+            {% for item in furniture %}
+            <a href="{{ url_for('products', furnitureid=item.get('furnitureid')) }}" class="box"><img
+                    src="{{ item.get('image') }}">
+                <h3>{{ item.get('furniturename') }}</h3>
+                {% if item.get('periodofdiscount') and item.get('periodofdiscount')>today %}
+                <h4><strong>Discount Price: ${{ item.get('discount') }}</strong></h4>
+
+                <input type="hidden" name="endDate" value="{{ item.get('periodofdiscount') }}">
+
+                <h3>Discount Ends in:</h3>
+                <h4><strong>
+                        <div name="countdown"></div>
+                    </strong></h4>
+                <h3 style="text-decoration: line-through;"><strong>Price:</strong>${{ item.get('sellprice') }}
+                </h3>
+                {% else %}
+                <h3><strong>Price:</strong>${{ item.get('sellprice') }}</h3>
+                {% endif %}
+                <form action="/add_cart" name="addCart" method="get" onsubmit="return onAddCart();">
+                    <input type="hidden" name="furnitureid" value="{{ item.get('furnitureid') }}" />
+                    <input type="hidden" name="categoryid" value="{{ categoryid }}" />
+                    <input type="hidden" name="periodofdiscount" value="{{ periodofdiscount }}" />
+                    <input type="hidden" name="customername" value="{{ customername }}" />
+                    <input type="submit" value="Add to Cart">
+                </form>
+            </a>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <script>
+        function onAddCart() {
+            const name = document.forms["addCart"]["customername"].value;
+            if (name === 'None') {
+                alert('Please login or register.')
+                return false;
+            }
+        }
+    </script>
+    <script>
+        setInterval(function () {
+            const countDown = document.getElementsByName('countdown')
+            const endDates = document.getElementsByName('endDate')
+            console.log(endDates)
+            endDates.forEach((endDateEle, i) => {
+                const endDate = new Date(endDateEle.value)
+                const diffDate = endDate - new Date()
+                if (!isNaN(diffDate) && diffDate > 0) {
+                    let days = Math.floor(diffDate / (1000 * 60 * 60 * 24));
+                    if (days < 10) {
+                        days = "0" + days
+                    }
+                    let hours = Math.floor((diffDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    if (hours < 10) {
+                        hours = "0" + hours
+                    }
+                    let mins = Math.floor((diffDate % (1000 * 60 * 60)) / (1000 * 60));
+                    if (mins < 10) {
+                        mins = "0" + mins
+                    }
+                    let secs = Math.floor((diffDate % (1000 * 60)) / (1000));
+                    if (secs < 10) {
+                        secs = "0" + secs
+                    }
+                    countDown[i].innerText = `${days}d : ${hours}h : ${mins}m : ${secs}s`
+                }
+            })
+        }, 1000);
+    </script>
+    {% endblock %}

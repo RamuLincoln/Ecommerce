@@ -1,0 +1,98 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <header>Furniture Info</header>
+    <div class="form">
+        <form id="staffviewfurnitureUpdate" name="staffviewfurnitureUpdate" action="/staffviewfurnitureUpdate"
+            method="post" enctype="multipart/form-data">
+            <div class="content">
+                <div class="input-field">
+                    <label for="furnitureid">Furniture ID</label>
+                    <input type="text" name="furnitureid" id="furnitureid" value="{{details.get('furnitureid') }}"
+                        readonly>
+                </div>
+
+                <div class="input-field">
+                    <label for="furniturename">Furniture Name</label>
+                    <input type="text" maxlength="32" name="furniturename" id="furniturename"
+                        value="{{details.get('furniturename') }}" disabled>
+                </div>
+
+                <div class="input-field">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" value="{{details['description']}}"
+                        required="required">
+                </div>
+                <div class="input-field">
+                    <label for="sellprice">Sell Price</label>
+                    <input type="text" name="sellprice" id="sellprice" value="{{details['sellprice']}}"
+                        required="required">
+                </div>
+            </div>
+
+
+            <div class="input-field">
+                <label for="discount">Discount Price</label>
+                <input type="text" name="discount" id="discount" value="{{details['discount']}}">
+            </div>
+
+            <div class="input-field">
+                <label for="purchasedprice">Discount End Date </label>
+                <input type="date" name="periodofdiscount" id="periodofdiscount"
+                    value="{{details['periodofdiscount']}}">
+            </div>
+
+            <div class="input-field">
+                <label for="purchasedprice">Purchased Price</label>
+                <input type="text" name="purchasedprice" id="purchasedprice"
+                    value="{{details['purchasedprice']}}">
+            </div>
+
+            <div class="input-field">
+                <label for="refurbishedprice">Refurbished Price</label>
+                <input type="text" name="refurbishedprice" id="refurbishedprice"
+                    value="{{details['cost']}}">
+            </div>
+
+            <div class="box">
+                <label for="image">Refurbished Image</label>
+                <input type="file" name="sel_Photo" id="sel_Photo" accept="images/png, images/jpeg, images/jpg">
+                <img id="preview" style="width:200px; margin-left:350px;" src="{{details['image']}}">
+            </div>
+
+
+            <p>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </p>
+    </form>
+</div>
+</div>
+
+
+<script>
+    var upload = document.getElementById('sel_Photo')
+    upload.addEventListener("change", handleFiles)
+
+    function handleFiles() {
+        if (upload.files && upload.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("preview").src = e.target.result;
+            };
+            reader.readAsDataURL(upload.files[0]);
+        }
+    }
+
+</script>
+
+{% endblock %}

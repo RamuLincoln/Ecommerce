@@ -1,0 +1,87 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<!---------Category-------------->
+
+<div class="name" id="name">
+    <h1>Category</h1>
+</div>
+
+<!--<div class="row owl-carousel">-->
+<section class="category">
+    <div class="box-container">
+        {% for item in category%}
+        <a href="/fur?categoryid={{item.get('categoryid')}}" class="box">
+            <img src="{{item.get('image')}}">
+            <h3>{{item.get('categoryname')}}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!---Image flipflop-->
+
+<div class="name" id="Reviews">
+    <h1>Customer Reviews</h1>
+</div>
+<section class="best" id="best">
+    <div class="row owl-carousel">
+        {% for item in review %}
+        <div class="item">
+            <h2>Customername : {{ item.firstName }}</h2>
+            <h2>Review : {{ item.description }}</h2>
+            {% if item.get('rating') == '1' %}
+            <h2>Rating :  &#9733</h2>
+            {% elif item.get('rating') == '2' %}
+            <h2>Rating :  &#9733 &#9733</h2>
+            {% elif item.get('rating') == '3' %}
+            <h2>Rating :  &#9733 &#9733 &#9733</h2>
+            {% elif item.get('rating') == '4' %}
+            <h2>Rating :  &#9733 &#9733 &#9733 &#9733</h2>
+            {% elif item.get('rating') == '5' %}
+            <h2>Rating :  &#9733 &#9733 &#9733 &#9733 &#9733</h2>
+            {% else %}
+            <h2>Rating : None</h2>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</section>
+        
+
+
+<!-- jquery cdn link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- owl carousel js file cdn link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="/static/js.js"></script>
+
+
+
+
+
+{% endblock %}

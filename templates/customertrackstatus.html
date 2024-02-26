@@ -1,0 +1,67 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>Track Status</title>{% endblock %}
+
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Image</th>
+            <th class="text-center">Furniture Name</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Selling Price</th>
+            <th class="text-center">Response</th>
+            <th class="text-center">Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in furniture %}
+        <tr>
+            <td><img src="{{item['image']}}" width="100" height="100"></td>
+            <td>{{ item.get('furniturename') }}</td>
+            <td>{{ item.get('description') }}</td>
+            <td>{{ item.get('purchasedprice') }}</td>
+            <td>
+                {% if item.get('purchasestatus') == 'bargaining' %}
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"
+                    title="Staff would like to pay this price">
+                    <font color="red">{{ item.get('bargainPrice') }}</font>
+                </span><br>
+                <form id="customerBargainUpdate" name="customerBargainUpdate" action="/customerBargainUpdate"
+                    method="POST">
+                    <input type="hidden" maxlength="32" name="furnitureid" id="furnitureid"
+                        value="{{item.get('furnitureid') }}" required="required">
+                    <br>
+                    <input type="submit" name="submit_action" value="Accept" style="width:70px">
+                    <input type="submit" name="submit_action" value="Reject" style="width:70px">
+                </form>
+                {% endif %}
+            </td>
+            <td>{{ item.get('purchasestatus') }}</td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Response Customer Request</title>{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container">
+    <header>Request Details</header>
+    <div class="content">
+        <form id="response" action="/view_request" name="response" method="post">
+            <div class="input-field">
+                <label for="category">Category</label>
+                <input type="text" name="category" id="category" value="{{request.get('category')}}" readonly>
+            </div>
+
+            <div class="input-field">
+                <label for="furniturename">Furniture Name</label>
+                <input type="text" name="furniturename" id="furniturename" value="{{request.get('furniturename')}}"
+                    readonly>
+            </div>
+
+            <div class="input-field">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" value="{{request.get('description')}}" readonly>
+            </div>
+
+            <div class="input-field">
+                <label for="reply">Reply</label>
+                {% if response %}
+                <input type="text" name="reply" id="reply" value="{{ response }}">
+                {% else%}
+                <input type="text" name="reply" id="reply" placeholder="Please enter a reply!">
+                {% endif %}
+            </div>
+
+            <input type="hidden" name="id" id="id" value="{{ id }}">
+            <p>
+                <input type="submit" value="submit" />
+                <input type="reset" value="Reset" />
+            </p>
+
+        </form>
+    </div>
+</div>
+
+
+<hr>
+<br><br>
+{% endblock %}

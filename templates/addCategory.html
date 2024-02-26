@@ -1,0 +1,50 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>ManageCaegory</title>{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<div class="container">
+    <header>Add category</header>
+    <div class="form">
+        <form id="AddCategory" name="AddCategory" action="/addcategory" method="post">
+            <div class="content">
+                <div class="input-field">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" maxlength="32" name="categoryName" pattern="[A-Z a-z]{1,32}" id="categoryName"
+                        placeholder="Add a category" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="description">Description</label>
+                    <input type="text" maxlength="32" name="description" pattern="[A-Z a-z]{1,32}" id="description"
+                        placeholder="Enter the description">
+                </div>
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

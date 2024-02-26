@@ -1,0 +1,25 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Admin</title>{% endblock %}
+
+{% block content %}
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+    <div class="home-slider">
+        <div class="item">
+            <img src="/static/images/s1.webp" alt="">
+
+            <div class="content">
+                <h3>Welcome Admin</h3>
+                <p>Manage second hand furniture, users and staff.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'Base_customer.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>Customer</title>{% endblock %}
+
+{% block content %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Image</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Delivery Address</th>
+            <th class="text-center">Purchase Date</th>
+            <th class="text-center">Delivery Status</th>
+            <th class="text-center">Estimate Arrival time</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Total($)</th>
+            <th class="text-center">Cancel</th>
+            <th class="text-center">Review</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in order %}
+        <tr>
+            <td>{{ item.get('furniturename') }}</td>
+            <td><img src="{{item['image']}}" width="100" height="100"></td>
+            <td>{{ item.get('description') }}</td>
+            <td>{{ item.get('deliveryaddress') }}</td>
+            <td>{{ item.get('orderdate') }}</td>
+            <td>{{ item.get('deliverystatus') }}</td>
+            <td>{{ item.get('estimatedarrivaltime') }}</td>
+            <td>1</td>
+            <td>{{ item.get('price') }}</td>
+            {% if item.get('deliverystatus') == 'processing' %}
+            <td><a href="/delete_order?orderid={{ item.get('orderid') }}"><button class="add-cart">Cancel</button></a>
+            </td>
+            {% else %}
+            <td><a class="btn disabled" href="/delete_order?orderid={{ item.get('orderid') }}"><button
+                        class="add-cart">Cancel</button></a></td>
+            {% endif %}
+
+            {% if item.get('deliverystatus') == 'delivered' %}
+            <td><a href="{{ url_for('customerrev', orderid=item.get('orderid')) }}"><button
+                        class="add-cart">Edit</button></a></td>
+            {% else %}
+            <td><a class="btn disabled" href="{{ url_for('customerrev', orderid=item.get('orderid')) }}"><button
+                        class="add-cart">Edit</button></a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+
+{% endblock %}

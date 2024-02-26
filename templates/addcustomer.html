@@ -1,0 +1,53 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>UserRegister</title>{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <header>Add customer</header>
+    <div class="form">
+        <form id="Addcustomer" name="Addcustomerr" action="/addcustomer" method="post">
+            <div class="content">
+                <div class="input-field">
+                    <label for="firstName">FirstName</label>
+                    <input type="text" maxlength="32" name="firstName" pattern="[A-Z a-z]{1,32}" id="firstname"
+                        placeholder="Enter firstname" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="lastName">LastName</label>
+                    <input type="text" maxlength="32" name="lastName" pattern="[A-Z a-z]{1,32}" id="lastName"
+                        placeholder="Enter firstname" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{5}" id="phone"
+                        placeholder="(nnn) nnn-nnnnn">
+                </div>
+                <div class="input-field">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="abc@gmail.com"
+                        required="required">
+                </div>
+                <div class="input-field">
+                    <label for="DOB">Birthday</label>
+                    <input type="date" name="DOB" id="DOB" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="address" required="required">
+                </div>
+                <p>
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Reset">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

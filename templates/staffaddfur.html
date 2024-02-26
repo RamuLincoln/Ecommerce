@@ -1,0 +1,64 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <header>Furniture Info</header>
+    <div class="form">
+        <form id="staffaddfurniture" name="staffaddfurniture" action="/staffaddfurniture"
+            method="post" enctype="multipart/form-data">
+                <div class="input-field">
+                    <label for="furniturename">Furniture Name</label>
+                    <input type="text" maxlength="32" name="furniturename" id="furniturename">
+                </div>
+
+                <div class="input-field">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="sellprice">Sell Price</label>
+                    <input type="text" name="sellprice" id="sellprice" required="required">
+                </div>
+                <div class="input-field">
+                    <label for="purchasedprice">Purchased Price</label>
+                    <input type="text" name="purchasedprice" id="purchasedprice">
+                </div>
+                <div class="input-field">
+                    <label for="Sellerid">Sellerid</label>
+                    <input type="text" name="Sellerid" id="Sellerid">
+                </div>
+
+            <p>
+                <input type="submit" value="Submit">
+                <input type="reset" value="Reset">
+            </p>
+    </form>
+</div>
+</div>
+
+
+<script>
+    var upload = document.getElementById('sel_Photo')
+    upload.addEventListener("change", handleFiles)
+
+    function handleFiles() {
+        if (upload.files && upload.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("preview").src = e.target.result;
+            };
+            reader.readAsDataURL(upload.files[0]);
+        }
+    }
+
+</script>
+
+{% endblock %}

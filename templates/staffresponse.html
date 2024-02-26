@@ -1,0 +1,73 @@
+{% extends 'Base_staff.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Furniture</title>{% endblock %}
+
+
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Image</th>
+            <th class="text-center">Furniture Name</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Purchased Price</th>
+            <th class="text-center">Seller</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Accept</th>
+            <th class="text-center">Bargain</th>
+            <th class="text-center">Reject</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in furniture %}
+        <tr>
+            <td><img src="{{item['image']}}" width="100" height="100"></td>
+            <td>{{ item.get('furniturename') }}</td>
+            <td>{{ item.get('description') }}</td>
+            <td>{{ item.get('purchasedprice') }}</td>
+            <td>{{ item.get('firstname') }}</td>
+            <td>{{ item.get('purchasestatus') }}</td>
+            {% if item.get('purchasestatus') == "Customer Accepted" %}
+            <td><a href="{{ url_for('customerSellFur', furnitureid=item.get('furnitureid')) }}"><button
+                        class="add-cart">Accept</button></a></td>
+            <td><button class="add-cart" disabled>Bargain</button></td>
+            <td><button class="add-cart" disabled>Reject</button></td>
+            {% elif item.get('purchasestatus') == "Customer Rejected" %}
+            <td><button class="add-cart" disabled>Accept</button></td>
+            <td><button class="add-cart" disabled>Bargain</button></td>
+            <td><a href="{{ url_for('staffreject', furnitureid=item.get('furnitureid')) }}"><button
+                        class="add-cart">Reject</button></a></td>
+            {% else %}
+            <td><a href="{{ url_for('customerSellFur', furnitureid=item.get('furnitureid')) }}"><button
+                        class="add-cart">Accept</button></a></td>
+            <td><a href="{{ url_for('staffbargain', furnitureid=item.get('furnitureid')) }}"><button
+                        class="add-cart">Bargain</button></a></td>
+            <td><a href="{{ url_for('staffreject', furnitureid=item.get('furnitureid')) }}"><button
+                        class="add-cart">Reject</button></a></td>
+            {% endif%}
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='new.css')}}">
+{% endblock %}
+{% block title %}<title>UserRegister</title>{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class=container>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <strong>{{ message }}</strong>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Staffid</th>
+            <th class="text-center">Username</th>
+            <th class="text-center">Dob</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Address</th>
+            <th class="text-center">edit</th>
+            <th class="text-center">delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for item in staff %}
+        <tr>
+            <td>{{ item.get('staffid') }}</td>
+            <td>{{ item.get('firstname') }} {{ item.get('lastname') }}</td>
+            <td>{{ item.get('DOB') }}</td>
+            <td>{{ item.get('email') }}</td>
+            <td>{{ item.get('address') }}</td>
+            <td><a href="{{ url_for('viewStaffDetail', staffid= item.get('staffid')) }}"><button
+                        class="add-cart">Edit</button></td>
+            <td><a href="{{ url_for('delstaff', staffid=item.get('staffid')) }}"><button
+                        class="add-cart">Delete</button></a></td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

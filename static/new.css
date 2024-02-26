@@ -1,0 +1,50 @@
+.table td button{
+    display: inline;
+    float: none;
+    height: 30px;
+    width: 100px;
+    color: var(--blue);
+    background: #fff;
+    border-radius: 50px;
+    cursor: pointer;
+ }
+.table td button:hover{
+     transform: scale(1.1);
+     color: #fff;
+     background: var(--blue);   
+ }
+.table td img{
+     border-radius: 10%;
+     border-width: 3px;
+     transition: 0.3s ease-in-out;
+ }
+ 
+.table td img:hover {
+   transform: scale(1.5);
+}
+  
+ .add {
+  width: 50%;
+}
+.add button{
+  display: inline;
+  float: none;
+  height: 30px;
+  width: 100px;
+  color: var(--blue);
+  background: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-left: 450px;
+  justify-content: flex-start;
+
+}
+.add button:hover{
+   transform: scale(1.1);
+   color: #fff;
+   background: var(--blue);   
+}
+ .total h2{
+    text-align: center;
+    align-items: center;
+ }

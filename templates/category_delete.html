@@ -1,0 +1,28 @@
+{% extends 'Base_admin.html' %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+{% endblock %}
+{% block title %}<title>Manage Category</title>{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<div align="center">
+    <div class="jumbotron" style="width:50%" ; align="center">
+        <h3>{{ msg }}</h3>
+        <br>
+
+        <form action="/delcategory/{{categoryid}}" method="POST">
+            <a href="/managecate" class="btn btn-primary btn-lg">CANCEL</a>
+            <button type="submit" name="delete" id="delete" class="btn btn-danger btn-lg" {{ btn_disable
+                }}>CONFIRM</button>
+            <input type="hidden" id="categoryid" name="categoryid" value="{{categoryid}}">
+        </form>
+
+    </div>
+    <br>
+    <br>
+</div>
+{% endblock %}
